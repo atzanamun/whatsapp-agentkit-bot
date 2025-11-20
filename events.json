@@ -1,0 +1,22 @@
+{
+  "eventos": [
+    {
+      "id": 1,
+      "nombre": "AI Salon Bogotá - Diciembre",
+      "fecha": "4 de diciembre 2025",
+      "hora": "5:00 PM",
+      "lugar": "Universidad XYZ - Auditorio Central",
+      "direccion": "Calle 25 # 42-51, Bogotá",
+      "descripcion": "Evento de IA Generativa con 5 speakers invitados."
+    },
+    {
+      "id": 2,
+      "nombre": "Bootcamp IA - Media Impact",
+      "fecha": "15 de diciembre 2025",
+      "hora": "2:00 PM",
+      "lugar": "WeWork Santafé",
+      "direccion": "Av. Pepe Sierra # 23-91",
+      "descripcion": "Taller práctico con Veo 2 y Nano Banana."
+    }
+  ]
+}
