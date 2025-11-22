@@ -7,10 +7,9 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "openai": "latest",
+    "@openai/agentkit": "latest",
     "axios": "latest",
     "express": "latest",
     "body-parser": "latest"
+  }
 }
-}
-
