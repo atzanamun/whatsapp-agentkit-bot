@@ -1,13 +1,13 @@
 {
   "name": "whatsapp-agentkit-bot",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "@openai/agentkit-js": "latest"
+    "@openai/agentkit": "latest",
     "axios": "latest",
     "express": "latest",
     "body-parser": "latest"
