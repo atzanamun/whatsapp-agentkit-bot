@@ -6,7 +6,7 @@ import OpenAI from "openai";
 const app = express();
 app.use(bodyParser.json());
 
-// Credenciales (Render)
+// Credenciales de Render
 const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
 const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -15,7 +15,7 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const client = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 /* ---------------------------------------------------------
-   🔥 RUTA NECESARIA PARA VERIFICAR EL WEBHOOK DE META
+   🔥 Ruta para VERIFICAR el webhook de Meta
 --------------------------------------------------------- */
 app.get("/webhook", (req, res) => {
   const VERIFY_TOKEN = "atza-verificacion-123";
@@ -24,19 +24,16 @@ app.get("/webhook", (req, res) => {
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
 
-  if (mode === "subscribe" && token === VERIFY_TOKEN) {
-    console.log("Webhook verificado correctamente");
-    res.status(200).send(challenge);
-  } else {
-    res.sendStatus(403);
+  if (mode && token) {
+    if (mode === "subscribe" && token === VERIFY_TOKEN) {
+      console.log("WEBHOOK VERIFICADO CON ÉXITO ✔️");
+      return res.status(200).send(challenge);
+    } else {
+      console.log("TOKEN INVALIDO ❌");
+      return res.sendStatus(403);
+    }
   }
-});
-
-/* ---------------------------------------------------------
-   ✅ Ruta simple para probar que el servidor funciona
---------------------------------------------------------- */
-app.get("/", (req, res) => {
-  res.send("Bot WhatsApp + OpenAI funcionando correctamente.");
+  res.sendStatus(403);
 });
 
 /* ---------------------------------------------------------
@@ -61,7 +58,7 @@ app.post("/webhook", async (req, res) => {
 
       const respuesta = ai.choices[0].message.content;
 
-      // Enviar respuesta a WhatsApp
+      // Enviar mensaje por WhatsApp
       await axios.post(
         `https://graph.facebook.com/v20.0/${PHONE_NUMBER_ID}/messages`,
         {
@@ -78,6 +75,13 @@ app.post("/webhook", async (req, res) => {
     console.error("Error en webhook:", error);
     res.sendStatus(500);
   }
+});
+
+/* ---------------------------------------------------------
+   🌐 Ruta simple para pruebas
+--------------------------------------------------------- */
+app.get("/", (req, res) => {
+  res.send("Bot WhatsApp + OpenAI funcionando correctamente.");
 });
 
 /* ---------------------------------------------------------
